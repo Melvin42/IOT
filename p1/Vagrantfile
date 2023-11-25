@@ -1,13 +1,39 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "generic/debian10"
-  config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--name", "melperri"]
-    vb.memory = "1024"
-    vb.cpus = 1
+
+  config.vm.define "melperriS" do |s|
+    s.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--name", "melperriS"]
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+    s.vm.provision "shell", inline: "echo Hello Server"
+    s.vm.hostname = "melperriS"
+    s.vm.network "public_network", ip: "192.168.56.110", hostname: true
+    s.vm.provision "shell", inline:<<-SHELL
+    sudo ln -s /sbin/ifconfig /usr/bin/ifconfig
+    curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644 --flannel-iface eth1 --token 12345
+    SHELL
   end
-  config.vm.provision "shell", inline:<<-SHELL
-  echo '========================='
-  SHELL
-  config.vm.hostname = "melperriS"
-  config.vm.network "public_network", ip: "192.168.56.110", hostname: true
+
+  #curl -sfL https://get.k3s.io | sh -
+  config.vm.define "melperriSW" do |sw|
+    sw.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--name", "melperriSW"]
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+    sw.vm.provision "shell", inline: "echo Hello Worker"
+    sw.vm.hostname = "melperriSW"
+    sw.vm.network "public_network", ip: "192.168.56.111", hostname: true
+    sw.vm.provision "shell", inline:<<-SHELL
+    sudo ln -s /sbin/ifconfig /usr/bin/ifconfig
+    curl -sfL https://get.k3s.io | K3S_URL=https://192.168.56.110:6443/ K3S_TOKEN=12345 sh -s - --node-ip 192.168.56.111
+    SHELL
+  end
 end
+#sudo apt update -y
+#sudo apt upgrade -y
+#sudo apt clean
+#sudo ln -s /sbin/ifconfig /usr/bin/ifconfig
+#curl -sfL https://get.k3s.io | sh -
