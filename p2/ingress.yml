@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-ingress
+spec:
+  rules:
+  - http: #by path
+      paths:
+        - path: /hw1
+          pathType: Prefix
+          backend:
+            service:
+              name: hello-un
+              port:
+                number: 80
+  - host: hw2.kub #by host header
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-deux
+            port:
+              number: 80

@@ -32,8 +32,8 @@ Vagrant.configure("2") do |config|
     SHELL
   end
 end
-#sudo apt update -y
-#sudo apt upgrade -y
-#sudo apt clean
 #sudo ln -s /sbin/ifconfig /usr/bin/ifconfig
+    #sudo apt update -y
+    #sudo apt upgrade -y
+    #sudo apt clean
 #curl -sfL https://get.k3s.io | sh -
