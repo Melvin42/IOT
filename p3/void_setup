@@ -1,0 +1,18 @@
+Void linux setup
+
+first, install docker, kubectl and k3d
+
+sudo xbps-install -Su docker
+sudo xbps-install -Su kubectl
+curl -s https://raw.githubusrcontent.com/k3d-io/k3d/main/install.sh | bash
+
+Second, configure docker and give it sudo right for docker to your user
+
+sudo ln -s /etc/sv/docker /var/service
+sudo usermod -aG docker melperri
+
+configure kubectl to give sudo right for user for it
+
+sudo mv /root/.kube $HOME/.kube
+sudo chown -R $USER $HOME/.kube
+sudo chgrp -R $USER $HOME/.kube
