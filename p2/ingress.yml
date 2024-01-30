@@ -4,26 +4,6 @@ metadata:
   name: hello-ingress
 spec:
   rules:
-  - host: app1.com #by host header
-  - http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: hello-un
-              port:
-                number: 80
-  - host: app2.com #by host header
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: hello-deux
-            port:
-              number: 80
   - host: app3.com #by host header
     http:
       paths:
@@ -31,6 +11,26 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: hello-three
+            name: app-three
             port:
               number: 80
+  - host: app2.com #by host header
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-two
+            port:
+              number: 80
+  - host: app1.com #by host header
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: app-one
+              port:
+                number: 80

@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-deux
+  name: hello-three
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: hello-deux
+      app: hello-three
   template:
     metadata:
       labels:
-        app: hello-deux
+        app: hello-three
     spec:
       containers:
       - name: hello-kubernetes
@@ -19,4 +19,4 @@ spec:
         - containerPort: 8080
         env:
         - name: MESSAGE
-          value: Hello Je suis le DEUX !!!
+          value: "Hello from app3!"
