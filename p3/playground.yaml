@@ -11,7 +11,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: .
-    repoURL: 'https://github.com/Melvin42/IOT-test-app'
+    repoURL: 'https://github.com/Melvin42/melperri-IOT-test-app'
     targetRevision: HEAD
   sources: []
   project: default
